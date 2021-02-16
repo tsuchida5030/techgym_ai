@@ -22,35 +22,23 @@ hand_df1 = pd.DataFrame(hand)
 hand_df2 = hand_df1.copy()
 
 #index,columnsを複数つけ、さらに名前を指定する
-
-feature1 = pd.Series(feature1, index=feature2)
-feature1.name = 'feature'
-hand_df2 = pd.concat([hand_df2.T, feature1], axis=1)
-hand_df2.index.names = ['特徴']
-hand_df2.reset_index(inplace=True)
-hand_df2.set_index(['feature', '特徴'], inplace=True)
-hand_df2 = hand_df2.T
-
-
-id = pd.Series(id, index=hand_df2.index)
-id.name = '番号'
-print(f'デバッグ：{id}')
-hand_df2 = pd.concat([hand_df2, id], axis=1)
-hand_df2.index.names = ['NUM']
-hand_df2.reset_index(inplace=True)
-hand_df2.set_index(['番号', 'NUM'], inplace=True)
+hand_df2.index = ([id,num])
+hand_df2.index.names = ['NUM','番号']
+hand_df2.columns = ([feature1,feature2])
+hand_df2.columns.names = ['feature','特徴']
 
 #表示
 display(hand_df2)
 
 #index columnsのレベル1を削除する
-# hand_df2.columns = 
-# hand_df2.index = 
+hand_df2.columns = hand_df2.columns.droplevel(1)
+hand_df2.index = hand_df2.index.droplevel(1)
 
 #Columnがgenderのデータのみ表示
-
+display(hand_df2['gender'])
 
 #Indexが106のところを削除,行方向に合計する場合は、axisパラメータを0に設定
-
+display(hand_df2.drop(['106'],axis=0))
 
 #Columnがgenderのところを削除,列方向に合計する場合は、axisパラメータを1に設定
+display(hand_df2.drop(['gender'],axis=1))
