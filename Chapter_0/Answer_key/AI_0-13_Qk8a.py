@@ -22,12 +22,12 @@ balloons.columns = columns_name
 #カテゴリーごとの集計
 display(pd.crosstab(balloons['color'], balloons['size']))
 
-# グラフの大きさを指定
+#グラフの大きさを指定
 plt.figure(figsize=(10, 10))
 
 #colorのヒストグラムを表示
 plt.subplot(2,2,1)
-sns.countplot(x='color' , data=balloons)
+sns.countplot(x='color', data=balloons)
 
 #colorカテゴリごとのage件数
 plt.subplot(2,2,2)
