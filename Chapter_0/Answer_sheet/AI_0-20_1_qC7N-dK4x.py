@@ -1,9 +1,12 @@
-﻿#AI-TECHGYM-N-20
+#AI-TECHGYM-N-20
 
 import urllib
 import pandas as pd
 import matplotlib.pyplot as plt
 %matplotlib inline
+
+import os
+os.chdir('C:/Users/tsuchida/Documents/techgym_セミナー/TortoiseGit_resorce/techgym_ai/Chapter_0/Answer_sheet/AI_Chapter0_saved_files')
 
 #線形重回帰
 from sklearn.linear_model import LinearRegression
@@ -25,7 +28,7 @@ columns_name = ['class','Alcohol','Malic_acid','Ash',
 wine.columns = columns_name
 
 #目的変数にAlcoholを設定、それ以外を説明変数にする
-x = wine.drop('Alcohol' , axis=1)
+x = wine.drop('Alcohol', axis=1)
 y = wine['Alcohol']
 
 # 重回帰クラスの初期化と学習
@@ -33,7 +36,7 @@ model = LinearRegression()
 model.fit(x,y)
 
 #決定係数の計算
-k_all = model.score(x,y)
+k_all = model.score(x, y)
 
 # 決定係数を表示
 print('決定係数(all):{:.3f}'.format(k_all))
