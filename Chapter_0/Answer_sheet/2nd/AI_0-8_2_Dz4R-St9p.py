@@ -16,20 +16,23 @@ hand1 = {'id'  :['100','101','102','103','104','105','106','107','108','109'],
 hand_df1 = pd.DataFrame(hand1)
 
 #分割の粒度
-
+draw_bins = [1, 20, 40]
 
 #ビン分割の実施
-hand_df1_draw_bins = 
+hand_df1_draw_bins = pd.cut(hand_df1['draw'], draw_bins)
 display(hand_df1_draw_bins)
-
+display(pd.value_counts(hand_df1_draw_bins))
 
 #中央値で2分割
-hand_df1_draw_bins_cut = 
+draw_max = hand_df1['draw'].max()
+draw_min = hand_df1['draw'].min()
+print(f'デバッグ max, min：{draw_max}, {draw_min}')
+hand_df1_draw_bins_cut = pd.cut(hand_df1['draw'], [draw_min, (draw_min+draw_max)/2, draw_max])
 display(hand_df1_draw_bins_cut)
-
+display(pd.value_counts(hand_df1_draw_bins_cut))
 
 #データ個数が均等になるように2分割
-hand_df1_draw_bins_qcut = 
+hand_df1_draw_bins_qcut = pd.qcut(hand_df1['draw'], 2)
 display(hand_df1_draw_bins_qcut)
-
+display(pd.value_counts(hand_df1_draw_bins_qcut))
 
