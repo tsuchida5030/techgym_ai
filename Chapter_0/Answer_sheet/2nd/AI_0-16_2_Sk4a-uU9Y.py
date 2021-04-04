@@ -36,30 +36,30 @@ wine.columns = columns_name
 
 
 # 線形回帰インスタンス
-REG = 
+REG = linear_model.LinearRegression()
 
 #説明変数
-X = 
+X = wine[['Alcohol']].values
 
 # 目的変数
-Y = 
+Y = wine['Color_intensity'].values
 
 # 予測モデルを計算、ここでa,bを算出
 REG.fit(X, Y)
- 
+
 # 回帰係数
-display('回帰係数:', )
+display('回帰係数:', REG.coef_)
 # 切片 
-display('切片:', )
+display('切片:', REG.intercept_)
 
 # 先ほどと同じ散布図
-
+plt.scatter(X, Y)
 plt.xlabel('')
 plt.ylabel('')
 
 # その上に線形回帰直線を引く
-
+plt.plot(X, REG.predict(X))
 plt.grid(True)
 
 # 決定係数
-print('決定係数:', )
+print('決定係数:', REG.score(X,Y))
