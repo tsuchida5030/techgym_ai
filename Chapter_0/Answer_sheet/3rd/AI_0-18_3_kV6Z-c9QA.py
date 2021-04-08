@@ -1,10 +1,13 @@
-#AI-TECHGYM-N-16
+#AI-TECHGYM-N-18
 
 import pandas as pd
 import urllib
 import seaborn as sns
 import matplotlib.pyplot as plt
 %matplotlib inline
+
+#相関係数のために読み込み
+import scipy as sp
 
 #線形単回帰
 from sklearn import linear_model
@@ -13,17 +16,8 @@ import os
 os.chdir('C:/Users/tsuchida/Documents/techgym_セミナー/TortoiseGit_resorce/techgym_ai/Chapter_0/Answer_sheet/AI_Chapter0_saved_files')
 
 #データの取得
-data = "https://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data"
+data = "http://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data"
 wine = pd.read_csv(data)
-
-txt= "https://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.names"
-urllib.request.urlretrieve(txt, './wine.names')
-
-#説明文の表示(必要であれば表示)
-#f = open("./wine.names","r")
-#for line in f:
-#    print(line)
-#f.close()
 
 #indexを説明からつける
 #アルコール,リンゴ酸,灰,灰分のアルカリ度,マグネシウム,総フェノール,フラバノイド
@@ -34,32 +28,22 @@ columns_name = ['class','Alcohol','Malic_acid','Ash',
                 'Color_intensity','Hue','OD280_OD315','Proline']
 wine.columns = columns_name
 
-
 # 線形回帰インスタンス
 REG = linear_model.LinearRegression()
 
-#説明変数
-X = wine[['Alcohol']].values
+#すべての相関係数の表示
+display(wine.corr())
 
-# 目的変数
-Y = wine['Color_intensity'].values
+#相関係数のヒートマップを表示
+plt.figure(figsize=(8, 8))
+sns.heatmap(wine.corr())
+plt.savefig('wine_data_heatmap.png')
 
-# 予測モデルを計算、ここでa,bを算出
-REG.fit(X, Y)
- 
-# 回帰係数
-display('回帰係数:', REG.coef_)
-# 切片 
-display('切片:', REG.intercept_)
+#相関係数の並び替え
+wine_corr = wine.corr().abs().unstack()
+wine_corr_sort = wine_corr.sort_values(ascending=False)
+wine_corr_list = pd.DataFrame(wine_corr_sort)
 
-# 先ほどと同じ散布図
-plt.scatter(X, Y)
-plt.xlabel('')
-plt.ylabel('')
-
-# その上に線形回帰直線を引く
-plt.plot(X, REG.predict(X))
-plt.grid(True)
-
-# 決定係数
-print('決定係数:', REG.score(X,Y))
+#総関係数上位を表示　13成分の同一ペアの相関係数が1.0になることに注意
+ra_low, ra_hi = 14, 25
+display(wine_corr_list.iloc[ra_low:ra_hi])
