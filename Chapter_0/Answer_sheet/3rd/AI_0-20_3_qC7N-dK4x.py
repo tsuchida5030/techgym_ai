@@ -28,22 +28,22 @@ columns_name = ['class','Alcohol','Malic_acid','Ash',
 wine.columns = columns_name
 
 #目的変数にAlcoholを設定、それ以外を説明変数にする
-x =
-y =
+x = wine[columns_name].drop('Alcohol', axis=1)
+y = wine['Alcohol']
 
 # 重回帰クラスの初期化と学習
-model =
+model = LinearRegression()
 model.fit(x,y)
 
 #決定係数の計算
-k_all = 
+k_all = model.score(x,y)
 
 # 決定係数を表示
 print('決定係数(all):{:.3f}'.format(k_all))
 
 # 回帰係数と切片を表示
-print('回帰係数{}'.format(pd.Series(, index=)))
-print('切片: {:.3f}'.format())
+print('回帰係数{}'.format(pd.Series(model.coef_, index=x.columns)))
+print('切片: {:.3f}'.format(model.intercept_))
 
 #単回帰分析の結果
 k_single = 0.5478829286096659
