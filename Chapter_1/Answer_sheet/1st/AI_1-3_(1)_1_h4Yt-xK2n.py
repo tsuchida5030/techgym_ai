@@ -16,6 +16,9 @@ from sklearn.datasets import make_blobs
 
 plt.figure(figsize = (12,12))
 
-X, y = make_blobs(random_state=1)
-plt.subplot(3,3,1)
-plt.scatter(X[:,0], X[:,1], color='black')
+random_state_numbers = [1, 5, 10, 15, 20, 25]
+
+for i, number in enumerate(random_state_numbers):
+  X, y = make_blobs(random_state=number)
+  plt.subplot(3,3,i+1)
+  plt.scatter(X[:,0], X[:,1], color='black')
