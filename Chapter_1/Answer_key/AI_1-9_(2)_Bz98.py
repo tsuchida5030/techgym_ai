@@ -13,4 +13,4 @@ cat = model.wv.most_similar(positive=['猫'])
 #cat = model.wv.similar_by_vector('猫') 
 #cat = model.wv.similar_by_word('猫') 
 for item in cat:
-    print(item[0], item[1])
+  print(item[0], item[1])
