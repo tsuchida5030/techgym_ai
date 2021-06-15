@@ -15,14 +15,14 @@ urllib.request.urlretrieve(url, zip)
 
 # ダウンロードしたzipの解凍
 with zipfile.ZipFile(zip, 'r') as myzip:
-    myzip.extractall()
-    # 解凍後のファイルからデータ読み込み
-    for myfile in myzip.infolist():
-        # 解凍後ファイル名取得
-        filename = myfile.filename
-        # ファイルオープン時にencodingを指定してsjisの変換をする
-        with open(filename, encoding='sjis') as file:
-            text = file.read()
+  myzip.extractall()
+  # 解凍後のファイルからデータ読み込み
+  for myfile in myzip.infolist():
+    # 解凍後ファイル名取得
+    filename = myfile.filename
+    # ファイルオープン時にencodingを指定してsjisの変換をする
+    with open(filename, encoding='sjis') as file:
+      text = file.read()
 
 text = re.split('\-{5,}',text)[2]   # ヘッダ部分の除去
 text = re.split('底本：',text)[0]   # フッタ部分の除去

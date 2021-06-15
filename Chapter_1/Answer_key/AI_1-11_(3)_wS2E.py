@@ -14,6 +14,9 @@ from janome.tokenizer import Tokenizer
 # Word2Vecライブラリのロード
 from gensim.models import word2vec
 
+import os
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
+
 #ファイルダウンロード
 url = 'https://www.aozora.gr.jp/cards/001847/files/57347_ruby_57225.zip'
 zip = '57347_ruby_57225.zip'
