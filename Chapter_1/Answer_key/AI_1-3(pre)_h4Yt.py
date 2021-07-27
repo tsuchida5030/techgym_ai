@@ -14,6 +14,10 @@ from sklearn.cluster import KMeans
 #分類データセット生成
 from sklearn.datasets import make_blobs
 
+#実行フォルダ
+import os
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
+
 plt.figure(figsize = (12,12))
 
 X, y = make_blobs(random_state=1)

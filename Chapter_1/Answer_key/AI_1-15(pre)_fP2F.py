@@ -3,6 +3,9 @@
 
 #インポート
 from gensim.models import KeyedVectors
+import os
+
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
 
 # ダウンロード先のパスを指定
 MODEL_FILENAME = "./stanby-jobs-200d-word2vector.bin"

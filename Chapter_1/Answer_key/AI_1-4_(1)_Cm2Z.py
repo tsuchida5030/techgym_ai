@@ -4,6 +4,10 @@
 # データ加工・処理・分析ライブラリ
 import pandas as pd
 
+# 実行フォルダ
+import os
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
+
 # データがあるurl の指定
 file_url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/00468/online_shoppers_intention.csv'
 

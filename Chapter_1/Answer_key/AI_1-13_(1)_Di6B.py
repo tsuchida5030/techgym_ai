@@ -8,6 +8,8 @@ from gensim.models import KeyedVectors
 import os
 import urllib.request
 
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
+
 title = "stanby-jobs-200d-word2vector.bin"
 if not os.path.exists(title):
     print(title + " DOWNLOAD.")

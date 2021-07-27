@@ -4,6 +4,9 @@
 #インポート
 import numpy as np
 import pandas as pd
+import os
+
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
 
 #次元削減
 from sklearn.manifold import TSNE
