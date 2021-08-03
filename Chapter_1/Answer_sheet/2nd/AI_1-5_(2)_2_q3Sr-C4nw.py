@@ -1,4 +1,4 @@
-﻿#AI-TECHGYM-1-5-A-2
+﻿#AI-TECHGYM-1-5-A-1
 #教師なし学習 PCA
 
 # データ加工・処理・分析ライブラリ
@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 
 # インポート
 from sklearn.preprocessing import StandardScaler
+
 from sklearn.decomposition import PCA
 
 #サンプルデータ
@@ -220,29 +221,17 @@ X = np.array(
 sc = StandardScaler()
 X_std = sc.fit_transform(X)
 
-# 主成分分析
 pca = PCA(n_components=2)
 pca.fit(X_std)
-
-# パラメータ設定
-arrowprops=dict(arrowstyle='->',
-                linewidth=2,
-                shrinkA=0, shrinkB=0)
-
-# 矢印を描くための関数
-def draw_vector(v0, v1):
-    plt.gca().annotate('', v1, v0, arrowprops=arrowprops) #v1は終点、v0は始点
-
-# 元のデータをプロット
-plt.scatter(X_std[:, 0], X_std[:, 1], alpha=0.2)
-
-# 主成分分析の2軸を矢印で表示する
-for length, vector in zip(pca.explained_variance_, pca.components_):
-    v = vector * 3 * np.sqrt(length)
-    draw_vector(pca.mean_, pca.mean_ + v)
-
-plt.axis('equal')
-
 print(pca.components_)
-print('各主成分の分散:{}'.format(pca.explained_variance_))
-print('各主成分の分散割合:{}'.format(pca.explained_variance_ratio_))
+print(pca.explained_variance_)
+print(pca.explained_variance_ratio_)
+
+# 相関係数の算出とグラフ化
+p = sp.stats.pearsonr(X_std[:, 0], X_std[:, 1])[0]
+print('相関係数{:.3f}:'.format(p))
+
+plt.scatter(X_std[:, 0], X_std[:, 1])
+plt.tick_params(direction='out', length=6, width=2, colors='r', grid_color='r', grid_alpha=0.5)
+vectors = pca.components_
+plt.annotate(vectors[0], )
