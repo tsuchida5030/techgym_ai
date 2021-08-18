@@ -233,6 +233,11 @@ arrowprops=dict(arrowstyle='->',
 def draw_vector(v0, v1):
     plt.gca().annotate('', v1, v0, arrowprops=arrowprops) #v1は終点、v0は始点
 
+# グラフの縦軸・横軸の目盛間隔を揃える
+plt.figure(figsize = (8, 8))
+plt.gca().set_xlim(-4, 4)
+plt.gca().set_ylim(-4, 4)
+
 # 元のデータをプロット
 plt.scatter(X_std[:, 0], X_std[:, 1], alpha=0.2)
 
