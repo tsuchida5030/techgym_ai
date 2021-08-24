@@ -9,6 +9,10 @@ import matplotlib.pyplot as plt
 
 %matplotlib inline
 
+#ファイル格納場所
+import os
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
+
 #githubからファイルをDownloadできない場合は以下を実行
 #url = "http://archive.ics.uci.edu/ml/machine-learning-databases/00352/Online%20Retail.xlsx"
 #req.urlretrieve(url, "Online_Retail.xlsx")
