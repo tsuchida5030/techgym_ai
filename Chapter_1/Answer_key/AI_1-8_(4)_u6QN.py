@@ -20,3 +20,4 @@ for i in lines:
     print(text_c)
 
 print("\n")
+text_file.close()

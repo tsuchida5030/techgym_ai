@@ -11,12 +11,11 @@ text_file = open("techgym-AI.txt")
 txt = text_file.read()
  
 #読み込んだデータを形態素解析
-lines = txt.split("\r\n")
+lines = txt.split("\n")
 for i in lines:
     print(i)
     print("\n")
     text_c = text.tokenize(i)    
     for j in text_c:
         print(j)
-
-print("\n")
+    print("\n")
