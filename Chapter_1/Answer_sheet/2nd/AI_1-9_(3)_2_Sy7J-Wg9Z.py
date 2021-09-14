@@ -7,14 +7,16 @@ os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\
 
 #インポート
 from gensim.models import Word2Vec
+import numpy as np
 
 #モデル
 sentences = [["猫", "鳴く", "にゃー"], ["犬", "鳴く", "わんわん"]]
 model = Word2Vec(sentences, min_count=1)
 
 #類似している単語を出力する
-cat = model.wv.most_similar(positive=['猫']) 
-#cat = model.wv.similar_by_vector('猫') 
-#cat = model.wv.similar_by_word('猫') 
-for item in cat:
-  print(item[0], item[1])
+cat = model.wv['猫'] 
+dog = model.wv['犬']
+
+# 「犬」と「猫」コサイン類似度
+print(np.dot(cat, dog) / (np.linalg.norm(cat) * np.linalg.norm(dog)))
+print(model.wv.n_similarity("猫", "犬"))
