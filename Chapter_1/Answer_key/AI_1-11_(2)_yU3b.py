@@ -51,7 +51,7 @@ obj_list = ['名詞', '動詞','形容詞']
 # テキストを引数として、形態素解析の結果で対象のみを配列で抽出する関数を定義 
 def extract_words(s):
     tokens = t.tokenize(s)
-    r = [token.base_form for token in tokens if token.part_of_speech.split(',')[0] in obj_list]
+    r = [token.base_form for token in tokens if token.part_of_speech.split(',')[0] in obj_list] #tokensはリスト内包表記を使わなければ要素を表示できない
     return r
 
 # 全体のテキストを句点('。')で区切った配列

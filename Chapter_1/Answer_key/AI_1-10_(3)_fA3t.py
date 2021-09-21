@@ -1,6 +1,10 @@
 ﻿#AI-TECHGYM-1-10-A-3
 #自然言語処理
 
+#実行場所
+import os
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
+
 #インポート
 from gensim.models import Word2Vec
 from janome.tokenizer import Tokenizer
@@ -14,7 +18,7 @@ txt = text_file.read()
  
 #読み込んだデータを形態素解析
 results = []
-lines = txt.split("\r\n")
+lines = txt.split("\n")
 for i in lines:
     text_c = text.tokenize(i,wakati=True)
     results.append(text_c)

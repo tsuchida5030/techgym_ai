@@ -41,9 +41,9 @@ text = re.sub('［＃.+?］', '',text) # 入力注の削除
 text = re.sub('\n\n', '\n', text)   # 空行の削除
 text = re.sub('\r', '', text)
 
-# outnum = 50
+outnum = 50
 # 頭の50文字の表示 
-# print(text[:outnum])
-# print("…")
+print(text[:outnum])
+print("…")
 # 後ろの50文字の表示 
-# print(text[-outnum:])
+print(text[-outnum:])

@@ -12,6 +12,9 @@ import zipfile
 # ファイル整形
 import re
 
+#Janome
+from janome.tokenizer import Tokenizer
+
 #ファイルダウンロード
 url = 'https://www.aozora.gr.jp/cards/001847/files/57347_ruby_57225.zip'
 zip = '57347_ruby_57225.zip'
@@ -29,9 +32,9 @@ with zipfile.ZipFile(zip, 'r') as myzip:
       text = file.read()
 
 # 加工前の全文表示
-# print(text)
-# print('以下、加工後')
-# print()
+print(text)
+print('以下、加工後')
+print()
 
 text = re.split('\-{5,}',text)[2]   # ヘッダ部分の除去
 text = re.split('底本：',text)[0]   # フッタ部分の除去
@@ -47,3 +50,12 @@ text = re.sub('\r', '', text)
 # print("…")
 # 後ろの50文字の表示 
 # print(text[-outnum:])
+
+t = Tokenizer()
+
+#読み込んだデータを形態素解析
+results = []
+lines = text.split("\n")
+for i in lines:
+  text_c = t.tokenize(i)
+  results.append(text_c)
