@@ -1,5 +1,9 @@
-#AI-TECHGYM-1-11-A-2
+﻿#AI-TECHGYM-1-11-A-2
 #自然言語処理
+
+#実行場所
+import os
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
 
 #インポート
 import urllib.request
@@ -10,6 +14,9 @@ import re
 
 #Janome
 from janome.tokenizer import Tokenizer
+
+from gensim.models import word2vec
+import numpy as np
 
 #ファイルダウンロード
 url = 'https://www.aozora.gr.jp/cards/001847/files/57347_ruby_57225.zip'
@@ -40,10 +47,10 @@ text = re.sub('\u3000', '', text)
 
 outnum = 50
 # 頭の100文字の表示 
-print(text[:outnum])
-print("…")
+# print(text[:outnum])
+# print("…")
 # 後ろの100文字の表示 
-print(text[-outnum:])
+# print(text[-outnum:])
 
 #インスタンスの生成 
 t = Tokenizer()
@@ -64,5 +71,24 @@ sentences = text.split('。')
 word_list = [extract_words(sentence) for sentence in sentences]
 
 #一部を確認 
-for word in word_list[0:3]:
-    print(word)
+# for word in word_list[0:3]:
+#     print(word)
+
+model = word2vec.Word2Vec(word_list, size=100,min_count=5,window=5,iter=100)
+
+#モデルのセーブ
+model.save("./words.model")
+
+#コサイン類似度
+ret_s = model.wv.n_similarity(['海'],['老人']) 
+print('「老人」と「海」のコサイン類似度 : {}'.format(ret_s))
+
+print('\n'+'「海」-「老人」')
+umi_mns_rojin = model.wv.most_similar(positive=['海'], negative=['老人'], topn=5)
+for item in umi_mns_rojin:
+    print(item[0], item[1])
+
+print('\n'+'「海」+「老人」')
+umi_pls_rojin = model.wv.most_similar(positive=['海', '老人'], topn=5)
+for item in umi_pls_rojin:
+    print(item[0], item[1])
