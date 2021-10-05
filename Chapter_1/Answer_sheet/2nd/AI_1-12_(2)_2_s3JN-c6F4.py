@@ -14,11 +14,6 @@ import matplotlib.font_manager as font_manager
 #PCA
 from sklearn.decomposition import PCA
 
-#フォントの準備
-import urllib.request as req
-url = "https://github.com/hokuto-HIRANO/Word2Vec/raw/master/font/Osaka.ttc"
-req.urlretrieve(url, "./Osaka.ttc")
-
 #フォントの指定
 FONTPATH='./Osaka.ttc'
 prop = font_manager.FontProperties(fname=FONTPATH)
@@ -35,18 +30,19 @@ words.append("ヘミングウェイ")
 words.append("魚")
 words.append("彼")
 
-word_vectors = []
+vectors = []
 
-for word in words:
-    word_vectors.append(model.wv[word])
+for w in words:
+    vectors.append(model.wv[w])
 
-#主成分分析
+#単語のベクトル表現を2次元に圧縮する
 pca = PCA(n_components=2)
-pca.fit(word_vectors)
-w_vecs_pca = pca.transform(word_vectors)
+pca.fit(vectors)
+vectors_pca= pca.transform(vectors)
 
-for vector in w_vecs_pca:
-    print(vector)
+for w in vectors_pca:
+    #配列形式に整形
+    print(np.array2string(w, separator=', ', formatter={'float_kind': lambda x: '{: .4f}'.format(x)}))
 
 #単語ベクトルの可視化
 def draw_2d_2groups(vectors, target1, target2, topn=100):
