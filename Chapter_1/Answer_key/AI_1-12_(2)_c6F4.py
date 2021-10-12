@@ -45,6 +45,11 @@ for w in vectors_pca:
     #配列形式に整形
     print(np.array2string(w, separator=', ', formatter={'float_kind': lambda x: '{: .4f}'.format(x)}))
 
+# グラフの縦軸・横軸の目盛間隔を揃える
+plt.figure(figsize = (8, 8))
+plt.gca().set_xlim(-16, 16)
+plt.gca().set_ylim(-16, 16)
+
 #ブロットする
 k = 0
 while k < len(vectors_pca):
@@ -55,6 +60,16 @@ while k < len(vectors_pca):
     plt.annotate(words[k], (vectors_pca[k][0], vectors_pca[k][1]), fontproperties=prop, fontsize=15)
 
     k += 1
+
+# plt.grid(color='k', linestyle='--', linewidth=0.5)
+
+# y=0に水平線を引く
+# plt.axhline(0, ls = "-.", color = "magenta")
+plt.axhline(0, ls = "-.", color = "m")
+
+# x=0に垂直線を引く
+# plt.axvline(0, ls = "--", color = "navy")
+plt.axvline(0, ls = "--", color = "b")
 
 #グラフ表示
 plt.show()

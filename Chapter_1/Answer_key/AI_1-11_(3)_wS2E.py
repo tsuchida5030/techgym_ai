@@ -41,6 +41,9 @@ text = re.sub('［＃.+?］', '',text) # 入力注の削除
 text = re.sub('\n\n', '\n', text)   # 空行の削除
 text = re.sub('\r', '', text)
 
+text = re.sub('\n', '', text)
+text = re.sub('\u3000', '', text)
+
 outnum = 50
 # 頭の100文字の表示 
 print(text[:outnum])
