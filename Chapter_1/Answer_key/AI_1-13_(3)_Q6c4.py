@@ -22,10 +22,11 @@ MODEL_FILENAME = "./stanby-jobs-200d-word2vector.bin"
 w2v = KeyedVectors.load_word2vec_format(MODEL_FILENAME, binary=True)
 
 # データの読み込み
-df = pd.read_csv("words.csv") 
+df = pd.read_csv("word.csv") 
 
 # 読み込んだデータのサンプルを取得
 co_df = df
+display(co_df.head())
 
 # 閾値を決める
 THRESHOLD = 0.7
