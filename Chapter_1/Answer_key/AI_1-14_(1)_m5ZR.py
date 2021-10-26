@@ -1,6 +1,9 @@
 ﻿#AI-TECHGYM-1-14-A-1
 #自然言語処理
 
+import os
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
+
 #インポート
 import numpy as np
 import pandas as pd
