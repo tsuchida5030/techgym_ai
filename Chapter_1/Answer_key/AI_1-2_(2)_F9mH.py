@@ -35,7 +35,7 @@ merge_data.columns = ['X','Y','cluster']
 
 #display(cluster_df)
 df0 = merge_data[merge_data.cluster == 0]
-df1 = merge_data[merge_data.cluster == 1]
+df1 = merge_data[merge_data.cluster == 1] # KMeansのインスタンンス化からここまで7行
 
 #グラフのプロット
 plt.scatter(df0['X'],df0['Y'],color='blue',label='cluster0')

@@ -1,4 +1,4 @@
-﻿#AI-TECHGYM-1-1-A-3
+#AI-TECHGYM-1-1-Q
 #教師なし学習 k-mean法
 
 #1-1
@@ -61,33 +61,11 @@ Sample = np.array([[ -2.32496308,  -6.6999964 ],
 
 cluster_df = pd.DataFrame(Sample)
 
-#display(cluster_df)
+# display(cluster_df)
 
-# 散布図(colorのオプションで色付け)
-#plt.scatter(cluster_df[0],cluster_df[1],color='black')
-
-#
-# KMeansクラスの初期化
-kmeans = KMeans(init='random',n_clusters=3)
-
-# クラスターの重心を計算
-kmeans.fit(cluster_df)
-
-# クラスター番号を分類
-y_pred = kmeans.predict(cluster_df)
-
-#クラスター番号を表示(必要に応じて)
-#display(y_pred)
-
-#データフレームに追加
-#display(cluster_df)
-cluster_df['2'] = y_pred
-
-# 上記のデータにて、X軸の値をX、Y軸の値をY、クラスター番号をclusterと列名指定
-cluster_df.columns = ['X','Y','cluster']
 
 # グラフの縦軸・横軸の目盛間隔を揃える
-plt.figure(figsize=(7,12))
+plt.figure(figsize=(3.5,6))
 plt.xlim(-7,7)
 plt.ylim(-12,12)
 
@@ -96,15 +74,5 @@ plt.axhline(0, ls = "-.", color = "m")
 # x=0に垂直線を引く
 plt.axvline(0, ls = "--", color = "b")
 
-#display(cluster_df)
-df0 = cluster_df[cluster_df.cluster == 0]
-df1 = cluster_df[cluster_df.cluster == 1]
-df2 = cluster_df[cluster_df.cluster == 2]
-
-#グラフのプロット
-plt.scatter(df0['X'],df0['Y'],color='blue',label='cluster0')
-plt.scatter(df1['X'],df1['Y'],color='red',label='cluster1')
-plt.scatter(df2['X'],df2['Y'],color='green',label='cluster2')
-
-#凡例
-plt.legend(loc='upper left')
+plt.scatter(cluster_df.iloc[:,0], cluster_df.iloc[:,1], color='black')
+plt.show()
