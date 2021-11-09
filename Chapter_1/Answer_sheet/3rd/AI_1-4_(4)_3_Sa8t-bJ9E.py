@@ -60,3 +60,5 @@ df = pd.concat([shoppers_with_cluster.cluster_number, qcut_r], axis=1)
 # クラスタ番号と年齢層を軸に集計し、年齢層を列に設定
 cross_cluster_r = df.groupby(['cluster_number', 'Region']).size().unstack().fillna(0)
 display(cross_cluster_r)
+
+# クラスター3の集団は、クラスター4の集団に比べ、⓵アジア地域以外の人の割合が少なく　⓶特別な日とその前後日以外の日に　ものを買うことが多い
