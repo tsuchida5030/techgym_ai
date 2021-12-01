@@ -12,10 +12,10 @@ import os
 os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
 
 #githubからファイルをDownloadできない場合は以下を実行
-url = "http://archive.ics.uci.edu/ml/machine-learning-databases/00352/Online%20Retail.xlsx"
-req.urlretrieve(url, "Online_Retail.xlsx")
-trans = pd.read_excel('Online_Retail.xlsx', sheet_name='Online Retail')
-trans.to_csv("./Online_Retail.csv")
+# url = "http://archive.ics.uci.edu/ml/machine-learning-databases/00352/Online%20Retail.xlsx"
+# req.urlretrieve(url, "Online_Retail.xlsx")
+# trans = pd.read_excel('Online_Retail.xlsx', sheet_name='Online Retail')
+# trans.to_csv("./Online_Retail.csv")
 
 #購買データの読み込み
 trans = pd.read_csv('Online_Retail.csv')
@@ -27,8 +27,10 @@ trans = pd.read_csv('Online_Retail.csv')
 trans['cancel_flg'] = trans.InvoiceNo.map(lambda x:str(x)[0])
 
 # cancel_flgでグルーピングして集計
-trans.groupby('cancel_flg').size()
+# display(trans.groupby('cancel_flg').size())
 
 #有効なデータに上書きする
 trans = trans[(trans.cancel_flg == '5') & (trans.CustomerID.notnull())]
 ################
+
+display(trans.groupby('StockCode').size().sort_values(ascending=False).head())
