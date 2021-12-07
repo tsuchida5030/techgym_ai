@@ -1,4 +1,4 @@
-﻿#AI-TECHGYM-1-7-A-2
+#AI-TECHGYM-1-7-A-2
 #教師なし学習 アソシエーション分析
 
 import pandas as pd
@@ -50,3 +50,4 @@ print('{:.3f}'.format(S_XY))
 #商品85123Aを購入するなら商品47566も購入するというルールのリフト値を計算する。
 print("商品85123Aを購入するなら商品47566も購入するというルールのリフト値　　　　　 :",end='')
 print('{:.3f}'.format(C*len(trans_ALL)/len(trans_Y)))
+
