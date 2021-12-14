@@ -53,9 +53,9 @@ obj_list = ['名詞', '動詞','形容詞']
 
 # テキストを引数として、形態素解析の結果で対象のみを配列で抽出する関数を定義 
 def extract_words(s):
-    tokens = t.tokenize(s)
-    r = [token.base_form for token in tokens if token.part_of_speech.split(',')[0] in obj_list] #tokensはリスト内包表記を使わなければ要素を表示できない
-    return r
+  tokens = t.tokenize(s)
+  r = [token.base_form for token in tokens if token.part_of_speech.split(',')[0] in obj_list] #tokensはリスト内包表記を使わなければ要素を表示できない
+  return r
 
 # 全体のテキストを句点('。')で区切った配列
 sentences = text.split('。')
@@ -65,4 +65,30 @@ word_list = [extract_words(sentence) for sentence in sentences]
 
 #一部を確認 
 for word in word_list[0:3]:
-    print(word)
+  print(word)
+
+model = Word2Vec(word_list, min_count=1)
+
+print()
+# 「老人」に対して類似した単語の上位5個
+for item in model.wv.most_similar('老人', topn=5):
+  print(item[0], item[1])
+
+print()
+# 「海」に対して類似した単語の上位5個
+for item in model.wv.most_similar('海', topn=5):
+  print(item[0], item[1])
+
+print()
+ret_s = model.wv.n_similarity(['海'],['老人'])
+print(ret_s)
+
+print()
+# 「海」から「老人」を引いたものに最も類似している単語の上位5個
+for item in model.wv.most_similar(positive=['海'], negative=['老人'], topn=5):
+  print(item[0], item[1])
+
+print()
+# 「海」に「老人」を加えたものに最も類似している単語の上位5個
+for item in model.wv.most_similar(positive=['海','老人'], topn=5):
+  print(item[0], item[1])

@@ -7,20 +7,28 @@ os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\
 
 #ライブラリのインポート
 from janome.tokenizer import Tokenizer
-import re
+from gensim.models import Word2Vec
 
 #txtファイルからデータの読み込み
 text_file = open("techgym-AI.txt")
 txt = text_file.read()
+text_file.close()
 
 t = Tokenizer()
 lines = txt.split("\n")
 
-ls_techgym = []
+results = []
 # 読み込んだデータを文ごとにリストに格納
 for i in lines:
-  ls_techgym.append(t.tokenize(i,wakati=True))
+  results.append(t.tokenize(i,wakati=True))
 
-text_file.close()
+# print(results[0])
+# print(type(results[0]))
 
-print(ls_techgym)
+model = Word2Vec(results, min_count=1)
+vec_pg = model.wv['プログラミング']
+print(vec_pg)
+
+for block in model.wv.most_similar('プログラミング')[:5]:
+  print(block[0], end=' ')
+  print(block[1])

@@ -13,3 +13,5 @@ txt = text_file.read()
 lines = txt.split("\n")
 for i in lines:
   print(i)
+
+text_file.close()

@@ -1,0 +1,3 @@
+words.model	size=100,min_count=5,window=5,iter=100
+words.model_2	size=100,min_count=1,window=5,iter=100
+words.model_3	size=100,min_count=5,window=5,iter=10
