@@ -58,7 +58,8 @@ while k < len(vectors_pca):
  
     #文字プロット
     plt.annotate(words[k], (vectors_pca[k][0], vectors_pca[k][1]), fontproperties=prop, fontsize=15)
-
+    # 引数に'xy=()'が省略されて'()'と書かれている
+    
     k += 1
 
 # plt.grid(color='k', linestyle='--', linewidth=0.5)

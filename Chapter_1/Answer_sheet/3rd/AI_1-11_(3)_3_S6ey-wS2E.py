@@ -10,6 +10,7 @@ import re
 
 #Janome
 from janome.tokenizer import Tokenizer
+from gensim.models import Word2Vec
 
 #ファイルダウンロード
 url = 'https://www.aozora.gr.jp/cards/001847/files/57347_ruby_57225.zip'
