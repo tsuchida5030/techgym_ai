@@ -14,6 +14,9 @@ import matplotlib.font_manager as font_manager
 #PCA
 from sklearn.decomposition import PCA
 
+# k-means法を使うためのインポート
+from sklearn.cluster import KMeans
+
 #フォントの準備
 import urllib.request as req
 url = "https://github.com/hokuto-HIRANO/Word2Vec/raw/master/font/Osaka.ttc"
@@ -42,6 +45,36 @@ def draw_2d_2groups(vectors, target1, target2, topn=100):
   plt.scatter(Y[:,0], Y[:,1], color=colors)
   for w, x, y, c in zip(similars[:], Y[:,0], Y[:,1], colors):
     plt.annotate(w, xy=(x, y), xytext=(3,3), textcoords='offset points', fontproperties=prop, fontsize=8, color=c)
+  plt.show()
+
+def draw_2d_3groups(vectors, target1, target2, topn=100):
+  similars1 = [w[0] for w in vectors.wv.most_similar(target1, topn=topn)]
+  similars1.insert(0, target1)
+  similars2 = [w[0] for w in vectors.wv.most_similar(target2, topn=topn)]
+  similars2.insert(0, target2)
+  similars = similars1 + similars2
+  colors = ['b']+['g']*(topn)+ ['cyan']+['orangered']*(topn)
+  X = [vectors.wv[w] for w in similars]
+  pca = PCA(n_components=2)
+  Y = pca.fit_transform(X)
+
+  # plt.figure(figsize=(20,20))
+  cluster_df = pd.DataFrame(Y)
+  kmeans = KMeans(n_clusters=3)
+  kmeans.fit(cluster_df)
+  #データフレームに追加
+  cluster_df['2'] = pd.Series(similars)
+  cluster_df['3'] = pd.Series(kmeans.labels_)
+  cluster_df.columns = ['X', 'Y', 'similars', 'cluster']
+  df0 = cluster_df[cluster_df.cluster == 0]
+  df1 = cluster_df[cluster_df.cluster == 1]
+  df2 = cluster_df[cluster_df.cluster == 2]
+
+  plt.scatter(df0.X, df0.Y, color='r')
+  plt.scatter(df1.X, df1.Y, color='g')
+  plt.scatter(df2.X, df2.Y, color='b')
+  for w, x, y in zip(cluster_df.similars, cluster_df.X, cluster_df.Y):
+    plt.annotate(w, xy=(x, y), xytext=(3,3), textcoords='offset points', fontproperties=prop, fontsize=10)
   plt.show()
 
 #対象の単語
@@ -81,4 +114,4 @@ plt.axvline(0, ls = "--", color = "purple")
 # plt.axis('equal')
 # plt.show()
 
-draw_2d_2groups(model,'老人','海',topn=100)
+draw_2d_3groups(model,'老人','海',topn=100)
