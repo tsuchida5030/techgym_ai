@@ -1,4 +1,4 @@
-﻿#AI-TECHGYM-1-14-A-1
+#AI-TECHGYM-1-14-A-1
 #自然言語処理
 
 import os
@@ -29,6 +29,15 @@ prop = font_manager.FontProperties(fname=FONTPATH)
 
 #グラフサイズ
 plt.figure(figsize=(20,20))
+
+
+title = "stanby-jobs-200d-word2vector.bin"
+if not os.path.exists(title):
+    print(title + " DOWNLOAD.")
+    url = "https://github.com/bizreach/ai/releases/download/2018-03-13/stanby-jobs-200d-word2vector.bin"
+    req.urlretrieve(url,"{0}".format(title))
+else :
+    print(title + " EXIST.")
 
 # ダウンロード先のパスを指定
 MODEL_FILENAME = "./stanby-jobs-200d-word2vector.bin"
