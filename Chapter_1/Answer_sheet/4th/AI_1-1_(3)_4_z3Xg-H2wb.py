@@ -73,17 +73,23 @@ print(kmeans.labels_)
 cluster_df['2'] = kmeans.labels_
 cluster_df.columns = ['X', 'Y', 'cluster']
 
-display(cluster_df)
+# display(cluster_df)
 
+df0 = cluster_df[cluster_df['cluster'] == 0]
+df1 = cluster_df[cluster_df['cluster'] == 1]
+df2 = cluster_df[cluster_df['cluster'] == 2]
 
-# # グラフの縦軸・横軸の目盛間隔を揃える
-# plt.figure(figsize = (8, 8))
-# plt.gca().set_xlim(-12, 12)
-# plt.gca().set_ylim(-12, 12)
+# グラフの縦軸・横軸の目盛間隔を揃える
+plt.figure(figsize = (8, 8))
+plt.gca().set_xlim(-12, 12)
+plt.gca().set_ylim(-12, 12)
 
-# # y=0に水平線を引く
-# plt.axhline(0, ls = "-.", color = "m")
-# # x=0に垂直線を引く
-# plt.axvline(0, ls = "--", color = "purple")
-# plt.scatter(cluster_df[0],cluster_df[1], color='black')
-# plt.show()
+# y=0に水平線を引く
+plt.axhline(0, ls = "-.", color = "m")
+# x=0に垂直線を引く
+plt.axvline(0, ls = "--", color = "purple")
+plt.scatter(df0['X'],df0['Y'], label='cluster_0', color='blue')
+plt.scatter(df1['X'],df1['Y'], label='cluster_1', color='red')
+plt.scatter(df2['X'],df2['Y'], label='cluster_2', color='green')
+plt.legend(loc='upper left')
+plt.show()
