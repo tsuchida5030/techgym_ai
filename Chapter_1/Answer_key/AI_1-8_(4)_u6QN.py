@@ -16,7 +16,7 @@ txt = text_file.read()
 #読み込んだデータを形態素解析
 lines = txt.split("\r\n")
 for i in lines:
-    text_c = text.tokenize(i,wakati=True)   
+    text_c = text.tokenize(i,wakati=True)
     print(text_c)
 
 print("\n")
