@@ -1,4 +1,4 @@
-﻿#AI-TECHGYM-1-11-Q-1
+#AI-TECHGYM-1-11-Q-1
 #自然言語処理
 
 #実行場所
@@ -11,6 +11,8 @@ import zipfile
 
 # ファイル整形
 import re
+
+from janome.tokenizer import Tokenizer
 
 #ファイルダウンロード
 url = 'https://www.aozora.gr.jp/cards/001847/files/57347_ruby_57225.zip'
@@ -47,3 +49,14 @@ print(text[:outnum])
 print("…")
 # 後ろの50文字の表示 
 print(text[-outnum:])
+
+t = Tokenizer()
+
+#読み込んだデータを表示
+results = []
+lines = text.split("\n")
+for i in lines:
+  tokens = t.tokenize(i, wakati=True)
+  results.append(tokens)
+
+print(results)
