@@ -13,10 +13,10 @@ from mpl_toolkits.mplot3d import Axes3D
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
-#乳がんデータを読み込むためのインポート
+#アヤメデータを読み込むためのインポート
 from sklearn.datasets import load_iris
 
-#乳がんデータの取得
+#アヤメデータの取得
 iris = load_iris()
 
 #三次元のグラフ

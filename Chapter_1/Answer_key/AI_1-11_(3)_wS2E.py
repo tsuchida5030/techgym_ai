@@ -12,7 +12,7 @@ import re
 from janome.tokenizer import Tokenizer
 
 # Word2Vecライブラリのロード
-from gensim.models import word2vec
+from gensim.models import Word2Vec
 
 import os
 os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
@@ -75,7 +75,7 @@ for word in word_list[0:3]:
 print('\n')
 
 # 事前準備したword_listを使ってWord2Vecの学習実施
-model = Word2Vec(word_list, size=100,min_count=5,window=5,iter=100)
+model = Word2Vec(word_list,size=100,min_count=5,window=5,iter=100)
 
 #モデルのセーブ
 model.save("./words.model")
