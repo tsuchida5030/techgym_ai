@@ -1,6 +1,10 @@
 ﻿#AI-TECHGYM-1-12-A-1
 #自然言語処理
 
+#実行場所
+import os
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
+
 #インポート
 from gensim.models import word2vec
 import numpy as np

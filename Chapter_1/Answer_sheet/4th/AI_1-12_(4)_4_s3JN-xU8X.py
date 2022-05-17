@@ -10,9 +10,13 @@ from gensim.models import word2vec
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as font_manager
+import pandas as pd
 
 #PCA
 from sklearn.decomposition import PCA
+
+# k-means
+from sklearn.cluster import KMeans
 
 #フォントの準備
 import urllib.request as req
@@ -37,20 +41,30 @@ words.append("彼")
 
 #単語ベクトルの可視化
 def draw_2d_2groups(vectors, target1, target2, topn=100):
-    similars1 = [w[0] for w in vectors.wv.most_similar(target1, topn=topn)]
-    similars1.insert(0, target1)
-    similars2 = [w[0] for w in vectors.wv.most_similar(target2, topn=topn)]
-    similars2.insert(0, target2)
-    similars = similars1 + similars2
-    colors = ['b']+['g']*(topn)+ ['m']+['orangered']*(topn)
-    X = [vectors.wv[w] for w in similars]
-    pca = PCA(n_components=2)
-    Y = pca.fit_transform(X)
-    # plt.figure(figsize=(20,20))
-    plt.scatter(Y[:,0], Y[:,1], color=colors)
-    for w, x, y, c in zip(similars[:], Y[:,0], Y[:,1], colors):
-        plt.annotate(w, xy=(x, y), xytext=(3,3), textcoords='offset points', fontproperties=prop, fontsize=15, color=c)
-    plt.show()
+  similars1 = [w[0] for w in vectors.wv.most_similar(target1, topn=topn)]
+  similars1.insert(0, target1)
+  similars2 = [w[0] for w in vectors.wv.most_similar(target2, topn=topn)]
+  similars2.insert(0, target2)
+  similars = similars1 + similars2
+  X = [vectors.wv[w] for w in similars]
+  pca = PCA(n_components=2)
+  Y = pca.fit_transform(X)
+
+  df_view = pd.DataFrame(Y, columns=['x','y'])
+  kmeans = KMeans(n_clusters=3, init='random')
+  kmeans.fit(df_view)
+  df_view['cluster'] = kmeans.labels_
+  df0 = df_view[df_view['cluster'] == 0]
+  df1 = df_view[df_view['cluster'] == 1]
+  df2 = df_view[df_view['cluster'] == 2]
+
+  # plt.figure(figsize=(20,20))
+  plt.scatter(df0.iloc[:,0], df0.iloc[:,1], color='g')
+  plt.scatter(df1.iloc[:,0], df1.iloc[:,1], color='r')
+  plt.scatter(df2.iloc[:,0], df2.iloc[:,1], color='b')
+  for w, x, y in zip(similars[:], Y[:,0], Y[:,1]):
+    plt.annotate(w, xy=(x, y), xytext=(3,3), textcoords='offset points', fontproperties=prop, fontsize=15)
+  plt.show()
 
 # グラフの縦軸・横軸の目盛間隔を揃える
 plt.figure(figsize = (18, 18))
