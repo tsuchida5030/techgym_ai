@@ -57,5 +57,5 @@ df_result = pd.DataFrame(result,columns=["単語A","単語B","類似度"])
 display(df_result)
 
 #CSVファイルに保存
-df_result.to_csv('./w2v_result.csv',index=False)
+df_result.to_csv('./w2v_result.csv',index=False,encoding='shift-jis')
 
