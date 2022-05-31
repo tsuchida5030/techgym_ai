@@ -1,16 +1,18 @@
-#AI-TECHGYM-1-14-Q-1
+﻿#AI-TECHGYM-1-14-A-2
 #自然言語処理
-
-#実行フォルダ
-import os
-os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
 
 #インポート
 import numpy as np
 import pandas as pd
+import os
 
-#主成分分析
-from sklearn.decomposition import PCA
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
+
+#次元削減
+from sklearn.manifold import TSNE
+
+# k-means法を使うためのインポート
+from sklearn.cluster import KMeans
 
 #グラフ
 from matplotlib import pylab as plt
@@ -42,21 +44,20 @@ df = pd.read_csv("words.csv")
 vectors = []
 zero_vec = np.zeros(200)
 
-for word in df['words']:
-  try:
-    vectors.append(w2v[word])
-  except:
-    vectors.append(zero_vec)
+for w in df["words"].values:
+    try:
+        vectors.append(w2v[w])
+    except Exception as e:
+        vectors.append(zero_vec)
 
-#単語のベクトル表現を2次元に圧縮する
-pca = PCA(n_components=2)
-pca.fit(vectors)
-vectors_pca= pca.transform(vectors)
+#次元削減
+tsne = TSNE(n_components=2, random_state=0)
+V = tsne.fit_transform(vectors)
 
-df_pca = pd.DataFrame(vectors_pca, columns=['x','y'])
-df_view = pd.concat([df_pca, df], axis=1)
-
-display(df_view.head())
+# クラスタリング
+kmeans = KMeans(n_clusters=10)
+clusters = kmeans.fit(vectors)
+df_V['cluster'] = pd.Series(clusters.labels_, index=df_V.index)
 
 # グラフの縦軸・横軸の目盛間隔を揃える
 plt.figure(figsize = (18, 18))
@@ -73,10 +74,12 @@ plt.axhline(0, ls = "-.", color = "m")
 # plt.axvline(0, ls = "--", color = "navy")
 plt.axvline(0, ls = "--", color = "b")
 
-for w in df_view['words']:
-  df_show = df_view[df_view['words']==w]
-  x = df_show.iloc[:,0]
-  y = df_show.iloc[:,1]
-  plt.scatter(x, y, color='b')
-  plt.annotate(w, xy=(x, y), xytext=(3,3), textcoords='offset points', fontproperties=prop, fontsize=15)
+#ベクトルを平面にプロット
+plt.scatter(V[:, 0], V[:,1])
+
+#文字のプロット
+for w, x, y in zip(df["words"].values, V[:,0], V[:,1]):
+    plt.annotate(w, xy=(x, y), xytext=(3,3), textcoords='offset points', fontproperties=prop, fontsize=10)
+
+#グラフ表示
 plt.show()

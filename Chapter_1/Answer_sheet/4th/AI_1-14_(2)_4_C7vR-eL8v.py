@@ -1,7 +1,6 @@
-#AI-TECHGYM-1-14-Q-1
+#AI-TECHGYM-1-14-A-1
 #自然言語処理
 
-#実行フォルダ
 import os
 os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
 
@@ -11,6 +10,9 @@ import pandas as pd
 
 #主成分分析
 from sklearn.decomposition import PCA
+
+# k-means
+from sklearn.cluster import KMeans
 
 #グラフ
 from matplotlib import pylab as plt
@@ -31,6 +33,15 @@ prop = font_manager.FontProperties(fname=FONTPATH)
 #グラフサイズ
 plt.figure(figsize=(20,20))
 
+
+title = "stanby-jobs-200d-word2vector.bin"
+if not os.path.exists(title):
+    print(title + " DOWNLOAD.")
+    url = "https://github.com/bizreach/ai/releases/download/2018-03-13/stanby-jobs-200d-word2vector.bin"
+    req.urlretrieve(url,"{0}".format(title))
+else :
+    print(title + " EXIST.")
+
 # ダウンロード先のパスを指定
 MODEL_FILENAME = "./stanby-jobs-200d-word2vector.bin"
 w2v = KeyedVectors.load_word2vec_format(MODEL_FILENAME, binary=True)
@@ -42,19 +53,27 @@ df = pd.read_csv("words.csv")
 vectors = []
 zero_vec = np.zeros(200)
 
-for word in df['words']:
-  try:
-    vectors.append(w2v[word])
-  except:
-    vectors.append(zero_vec)
+for w in df["words"].values:
+    try:
+        vectors.append(w2v[w])
+    except Exception as e:
+        vectors.append(zero_vec)
 
-#単語のベクトル表現を2次元に圧縮する
+#PCA
 pca = PCA(n_components=2)
-pca.fit(vectors)
-vectors_pca= pca.transform(vectors)
+V = pca.fit_transform(vectors)
 
-df_pca = pd.DataFrame(vectors_pca, columns=['x','y'])
-df_view = pd.concat([df_pca, df], axis=1)
+#kmeans
+kmeans = KMeans(n_clusters=10, init='random')
+kmeans.fit(V)
+df_view['cluster'] = kmeans.labels_
+df_view['words'] = df['words']
+df_view['x'] = pd.DataFrame(V[:,0])
+df_view['y'] = pd.DataFrame(V[:,1])
+
+#色指定
+color = df_V.cluster.astype(float)
+df_view['color'] = pd.DataFrame(color)
 
 display(df_view.head())
 
@@ -73,10 +92,18 @@ plt.axhline(0, ls = "-.", color = "m")
 # plt.axvline(0, ls = "--", color = "navy")
 plt.axvline(0, ls = "--", color = "b")
 
-for w in df_view['words']:
-  df_show = df_view[df_view['words']==w]
-  x = df_show.iloc[:,0]
-  y = df_show.iloc[:,1]
-  plt.scatter(x, y, color='b')
-  plt.annotate(w, xy=(x, y), xytext=(3,3), textcoords='offset points', fontproperties=prop, fontsize=15)
+
+#ベクトルを平面にプロット
+for cluster in set(df_view['cluster']):
+    V_roop = df_view[df_view['cluster']==cluster]
+    X = V_roop.loc[:,'x']
+    Y = V_roop.loc[:,'y']
+    W = V_roop.loc[:,'words']
+    C = V_roop.loc[:,'color']
+    plt.scatter(X, Y, c=C)
+    #文字のプロット
+    for w, x, y in zip(W, X, Y):
+        plt.annotate(w, xy=(x, y), xytext=(3,3), textcoords='offset points', fontproperties=prop, fontsize=12)
+
+#グラフ表示
 plt.show()
