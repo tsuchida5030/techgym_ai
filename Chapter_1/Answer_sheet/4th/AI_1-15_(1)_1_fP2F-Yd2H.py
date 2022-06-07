@@ -14,3 +14,8 @@ w2v = KeyedVectors.load_word2vec_format(MODEL_FILENAME, binary=True)
 
 print("単語を入力してください。\n")
 word = input()
+
+try:
+  print(w2v.most_similar(word, topn=5))
+except Exception as e:
+  print('モデルに含まれていません。')
