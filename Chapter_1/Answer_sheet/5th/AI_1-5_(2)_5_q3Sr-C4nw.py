@@ -4,6 +4,7 @@
 # データ加工・処理・分析ライブラリ
 import numpy as np
 import scipy as sp
+from sklearn.decomposition import PCA
 
 # 可視化ライブラリ
 import matplotlib.pyplot as plt
@@ -216,13 +217,42 @@ X = np.array(
  [ 3.986e-01,  2.319e-02]])
 
 
+sc = StandardScaler()
+
+X_std = sc.fit_transform(X)
+
+# グラフの縦軸・横軸の目盛間隔を揃える
+plt.figure(figsize = (8, 8))
+plt.gca().set_xlim(-4, 4)
+plt.gca().set_ylim(-4, 4)
+
+# y=0に水平線を引く
+plt.axhline(0, ls = "-.", color = "m")
+# x=0に垂直線を引く
+plt.axvline(0, ls = "--", color = "purple")
+
+plt.scatter(X_std[:,0], X_std[:,1])
+
+print(sp.stats.pearsonr(X_std[:,0], X_std[:,1]))
+
+pca = PCA(n_components=2)
+pca.fit(X_std)
+X_pca = pca.transform(X_std)
+
+print("主成分の特徴空間の固有ベクトル：\n{}".format(pca.components_))
+print("各主成分の分散：{}".format(pca.explained_variance_))
+print("各成分が持つ分散の比率：{}".format(pca.explained_variance_ratio_))
+
 # AI-TECHGYM-1-5-Q-2 ヒント
 # 主成分分析の2軸を矢印で表示する
-# arrowprops=dict(arrowstyle='->', linewidth=2, shrinkA=0, shrinkB=0)
+# パラメータ設定
+arrowprops=dict(arrowstyle='->', linewidth=2, shrinkA=0, shrinkB=0)
 
-# def draw_vector(v0, v1):
-#     plt.gca().annotate('', v1, v0, arrowprops=arrowprops)
+def draw_vector(v0, v1):
+    plt.gca().annotate('', v1, v0, arrowprops=arrowprops)
 
-# for length, vector in zip(pca.explained_variance_, pca.components_):
-#   v = vector * 3 * np.sqrt(length)
-#   draw_vector(pca.mean_, pca.mean_ + v)
+for length, vector in zip(pca.explained_variance_, pca.components_):
+  v = vector * 3 * np.sqrt(length)
+  draw_vector(pca.mean_, pca.mean_ + v)
+
+plt.show()

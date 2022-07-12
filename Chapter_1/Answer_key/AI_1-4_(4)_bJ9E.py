@@ -31,29 +31,29 @@ kmeans.fit(shoppers_sub)
 # クラスター番号をpandasのSeriesオブジェクトに変換
 labels = pd.Series(kmeans.labels_, name='cluster_number')
 
-# 金融機関のデータにクラスター番号のデータを結合
+# 買い物客のデータにクラスター番号のデータを結合
 shoppers_with_cluster = pd.concat([shoppers, labels], axis=1)
 
 # 分割のための区切りを設定
 bins = [0,0.2,0.4,0.6,0.8,1]
 
-# 上の区切りをもとに金融機関のデータを分割し、qcut_sp変数に各データの年齢層を設定
+# 上の区切りをもとに買い物客のデータを分割し、qcut_sp変数に各データの特別日からのずれ度合いに対するアクセス数を設定
 qcut_sp = pd.cut(shoppers_with_cluster.SpecialDay, bins, right=False)
 
-# クラスタ番号と年齢層を結合
+# クラスタ番号と特別日からのずれ度合いに対するアクセス数を結合
 df = pd.concat([shoppers_with_cluster.cluster_number, qcut_sp], axis=1)
 
-# クラスタ番号と特別日を軸に集計し、特別日を列に設定
+# クラスタ番号と特別日からのずれ度合いを軸に集計し、特別日からのずれ度合いを列に設定
 cross_cluster_sp = df.groupby(['cluster_number', 'SpecialDay']).size().unstack().fillna(0)
 display(cross_cluster_sp)
 
 # 分割のための区切りを設定
 bins_2 = [1,2,3,4,5,6,7,8,9]
 
-# 上の区切りをもとに金融機関のデータを分割し、qcut_r変数に各データの年齢層を設定
+# 上の区切りをもとに買い物客のデータを分割し、qcut_r変数に各データの地域を設定
 qcut_r = pd.cut(shoppers_with_cluster.Region, bins_2, right=False)
 
-# クラスタ番号と年齢層を結合
+# クラスタ番号と地域を結合
 df = pd.concat([shoppers_with_cluster.cluster_number, qcut_r], axis=1)
 
 # クラスタ番号と地域を軸に集計し、地域を列に設定

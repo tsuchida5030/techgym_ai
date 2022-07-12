@@ -39,3 +39,8 @@ plt.bar(clusters.index, clusters)
 ax.set_xlabel('cluster number')
 ax.set_ylabel('count')
 plt.show()
+
+SpDay_cut_bins = [0, 0.2, 0.4, 0.6, 0.8, 1.0]
+Sr_cut = pd.cut(df_view.SpecialDay, SpDay_cut_bins)
+
+df_SpDay = pd.concat([df_view, Sr_cut])

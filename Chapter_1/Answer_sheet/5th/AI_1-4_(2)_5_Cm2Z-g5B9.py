@@ -1,4 +1,4 @@
-﻿#AI-TECHGYM-1-4-A-1
+#AI-TECHGYM-1-4-A-1
 #教師なし学習 k-mean法
 
 # データ加工・処理・分析ライブラリ
@@ -35,4 +35,4 @@ df_view.loc[:,'cluster'] = kmeans.labels_
 
 # display(df_view.head(5))
 
-print(df_view.groupby('cluster').count())
+print(df_view['cluster'].value_counts(sort=False))

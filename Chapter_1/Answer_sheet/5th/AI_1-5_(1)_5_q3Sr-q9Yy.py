@@ -218,11 +218,25 @@ X = np.array(
 
 # AI-TECHGYM-1-5-Q-2 ヒント
 # 主成分分析の2軸を矢印で表示する
-# arrowprops=dict(arrowstyle='->', linewidth=2, shrinkA=0, shrinkB=0)
+#for length, vector in zip(pca.explained_variance_, pca.components_):
+#    v = vector * 3 * np.sqrt(length)
+#    draw_vector(pca.mean_, pca.mean_ + v)
 
-# def draw_vector(v0, v1):
-#     plt.gca().annotate('', v1, v0, arrowprops=arrowprops)
+sc = StandardScaler()
 
-# for length, vector in zip(pca.explained_variance_, pca.components_):
-#   v = vector * 3 * np.sqrt(length)
-#   draw_vector(pca.mean_, pca.mean_ + v)
+X_std = sc.fit_transform(X)
+
+# グラフの縦軸・横軸の目盛間隔を揃える
+plt.figure(figsize = (8, 8))
+plt.gca().set_xlim(-4, 4)
+plt.gca().set_ylim(-4, 4)
+
+# y=0に水平線を引く
+plt.axhline(0, ls = "-.", color = "m")
+# x=0に垂直線を引く
+plt.axvline(0, ls = "--", color = "purple")
+
+plt.scatter(X_std[:,0], X_std[:,1])
+plt.show()
+
+print(sp.stats.pearsonr(X_std[:,0], X_std[:,1]))
