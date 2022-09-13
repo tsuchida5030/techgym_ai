@@ -75,7 +75,7 @@ for word in word_list[0:3]:
 print('\n')
 
 # 事前準備したword_listを使ってWord2Vecの学習実施
-model = Word2Vec(word_list,size=100,min_count=5,window=5,iter=100)
+model = Word2Vec(word_list,vector_size=100,min_count=5,window=5,epochs=100)
 
 #モデルのセーブ
 model.save("./words.model")
