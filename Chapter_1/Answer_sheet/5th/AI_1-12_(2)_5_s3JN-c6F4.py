@@ -1,12 +1,17 @@
-﻿#AI-TECHGYM-1-12-A-1
+#AI-TECHGYM-1-12-A-1
 #自然言語処理
 
 #インポート
 from gensim.models import word2vec
 import numpy as np
+import os
+import matplotlib.pyplot as plt
 
 #PCA
 from sklearn.decomposition import PCA
+
+# 実行場所
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
 
 #モデルの読み込み
 model_path = './words.model'
@@ -28,7 +33,7 @@ for w in words:
 #単語のベクトル表現を2次元に圧縮する
 pca = PCA(n_components=2)
 pca.fit(vectors)
-vectors_pca= pca.transform(vectors)
+vectors_pca = pca.transform(vectors)
 
 for w in vectors_pca:
   #配列形式に整形

@@ -1,14 +1,15 @@
-﻿#AI-TECHGYM-1-13-A-1
+﻿#AI-TECHGYM-1-13-Q-1
 #自然言語処理
 
 # word2vec データ読み込み
 from gensim.models import KeyedVectors
 
+# 実行場所
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
+
 #ファイルの準備
 import os
 import urllib.request
-
-os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_1\Answer_sheet\AI_Chapter1_saved_files")
 
 title = "stanby-jobs-200d-word2vector.bin"
 if not os.path.exists(title):
@@ -28,35 +29,29 @@ words = w2v.most_similar('テクノロジー', topn=5)
 for word in words:print(word)
 print('\n')
 
-print("「テクノロジー」＋「金融」")
-words = w2v.most_similar(positive=['テクノロジー', '金融'], topn=5)
+print("「テクノロジー」+「金融」")
+words = w2v.most_similar(positive=['テクノロジー','金融'], topn=5)
 for word in words:print(word)
 print('\n')
 
-print("「テクノロジー」＋「金融」ー「IT」")
-words = w2v.most_similar(positive=['テクノロジー', '金融'], negative=['IT'], topn=5)
+print("「テクノロジー」+「金融」-「IT」")
+words = w2v.most_similar(positive=['テクノロジー','金融'],negative=['IT'], topn=5)
 for word in words:print(word)
 print('\n')
 
-print("「テクノロジー」(ベクトル)")
-word1 = w2v['テクノロジー']
-words = w2v.similar_by_vector(word1, topn=5)
+
+#similar_by_vector()メソッド
+print("「テクノロジー」")
+words = w2v.similar_by_vector('テクノロジー', topn=5)
 for word in words:print(word)
 print('\n')
 
-print("「テクノロジー」＋「金融」(ベクトル)")
-word1 = w2v['テクノロジー']
-word2 = w2v['金融']
-word_base = word1 + word2
-words = w2v.similar_by_vector(word_base, topn=5)
+print("「テクノロジー」+「金融」")
+words = w2v.similar_by_vector(positive=['テクノロジー','金融'], topn=5)
 for word in words:print(word)
 print('\n')
 
-print("「テクノロジー」＋「金融」-「IT」(ベクトル)")
-word1 = w2v['テクノロジー']
-word2 = w2v['金融']
-word3 = w2v['IT']
-word_base = word1 + word2 - word3
-words = w2v.similar_by_vector(word_base, topn=5)
+print("「テクノロジー」+「金融」-「IT」")
+words = w2v.similar_by_vector(positive=['テクノロジー','金融'],negative=['IT'], topn=5)
 for word in words:print(word)
 print('\n')
