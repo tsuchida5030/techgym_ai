@@ -20,7 +20,7 @@ display(df_matrix_std)
 df = pd.DataFrame(matrix)
 
 #標準化 : 各変数 - 平均 / 標準偏差
-df_std = (df - df.mean())/df.std(ddof=False)
+df_std = (df - df.mean())/df.std(ddof=0)
 display(df_std)
 
 #scipyでの計算
@@ -40,4 +40,4 @@ display(pd.DataFrame(x_std))
 
 #検算
 display(df_std.mean())
-display(df_std.std(ddof=False))
+display(df_std.std(ddof=0))
