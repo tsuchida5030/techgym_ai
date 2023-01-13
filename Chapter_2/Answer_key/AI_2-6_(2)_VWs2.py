@@ -5,13 +5,14 @@
 import pandas as pd
 
 #読み込みデータ
-pg_data = {'0':['Python'],'1':['Ruby'],'2':['PHP'],'3':['Java'],'4':['JavaScript']}
-df_row = pd.DataFrame(pg_data)
-df = df_row.T
+pg_data = {'0':['Python'],'1':['Ruby'],'2':['PHP'],'3':['Java'],'4':['JavaScript']} #項目名の辞書型
+df_row = pd.DataFrame(pg_data)                                                      #項目名が一行目に横に並ぶデータフレーム
+df = df_row.T                                                                       #項目名が一列目に縦に並ぶデータフレーム
+#display(df)
 
 #===OneHotEncoder====
 from sklearn.preprocessing import OneHotEncoder
-enc = OneHotEncoder()
+enc = OneHotEncoder()                                                               #インスタンス化されたワンホットエンコーダのクラス
 array_enc = enc.fit_transform(df).toarray()
 
 columns = ['Java','JavaScript','PHP','Python','Ruby']
