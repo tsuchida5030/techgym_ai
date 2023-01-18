@@ -5,9 +5,9 @@
 import pandas as pd
 
 #読み込みデータ
-pg_data = {'0':['Python'],'1':['Ruby'],'2':['PHP'],'3':['Java'],'4':['JavaScript']} #項目名の辞書型
-df_row = pd.DataFrame(pg_data)                                                      #項目名が一行目に横に並ぶデータフレーム
-df = df_row.T                                                                       #項目名が一列目に縦に並ぶデータフレーム
+pg_data = {'0':['Python'],'1':['Ruby'],'2':['PHP'],'3':['Java'],'4':['JavaScript']} #pg_data:項目名の辞書型
+df_row = pd.DataFrame(pg_data)                                                      #df_row:項目名が一行目に横に並ぶデータフレーム
+df = df_row.T                                                                       #df:項目名が一列目に縦に並ぶデータフレーム
 #display(df)
 
 #one hot encoding
@@ -27,8 +27,8 @@ values = df[0].values                                                           
 for i, row in enumerate(values):                                                    #項目名ひとつ毎につき１ループ。iはループ回数、rowは項目名
     vector    = [0] * len(values)                                                   #vector:ワンホットベクトルのベースとなる0ベクトル
     vector[i] = 1                                                                   #vector:ワンホットベクトルの1の場所を、他のループでつくるワンホットベクトルの1の場所と被らないよう、ループ回数iで指定する
-    tmp_se    = pd.Series([row, vector], index=new_df.columns)                      #tmp_se:上述のrowとvectorをシリーズ型にしたもの
-    new_df    = new_df.append(tmp_se, ignore_index=True)                            #空のデータフレームnew_dfに、tmp_seのシリーズを横に連結（１列分として追加）する
+    tmp_se    = pd.Series([row, vector], index=new_df.columns)                      #tmp_se:上述のrowとvectorを値としてシリーズ型にしたもの
+    new_df    = new_df.append(tmp_se, ignore_index=True)                            #空のデータフレームnew_dfに、tmp_seのシリーズを横に連結（２列分追加）する
 
 #表示
 display(new_df)
