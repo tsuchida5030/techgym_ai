@@ -13,10 +13,10 @@ df = df_row.T                                                                   
 #===LabelEncoder====
 from sklearn.preprocessing import LabelEncoder
 enc = LabelEncoder()                                                               #インスタンス化されたワンホットエンコーダのクラス
-array_enc = enc.fit_transform(df)                                                  #カテゴリ変数となる項目名が一列目に縦に並ぶデータフレームから、ワンホットの配列を作る
+array_enc = enc.fit_transform(df)                                                  #項目名が一列目に縦に並ぶデータフレームから、項目毎に整数ラベルをエンコードした配列を作る
 
 columns = ['Java','JavaScript','PHP','Python','Ruby']
-df1 = pd.DataFrame(data = array_enc, columns = columns,dtype=int)                   #ワンホットの配列をデータフレームに変換する
+df1 = pd.DataFrame(data = array_enc, columns = columns,dtype=int)                   #配列をデータフレームに変換する
 
 #表示用の入れ替え
 df1_d = df1.iloc[:,[3,4,2,0,1]]

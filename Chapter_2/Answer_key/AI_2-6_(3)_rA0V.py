@@ -12,6 +12,6 @@ columns = ['Python','Ruby','PHP','Java','JavaScript']
 le = LabelEncoder()
 
 #ラベルを覚えさせる,ラベルを整数に変換
-le_a = le.fit_transform(columns)
-df_le = pd.DataFrame(le_a,index=columns,columns=['Label'])
+le_a = le.fit_transform(columns)                                              #リスト内の項目毎に、ユニークな整数をエンコードした配列を作る
+df_le = pd.DataFrame(le_a,index=columns,columns=['Label'])                    #配列をデータフレームに変換する
 display(df_le)

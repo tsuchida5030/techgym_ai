@@ -1,6 +1,10 @@
 #AI-TECHGYM-2-7-A-1
 #特徴量エンジニアリング
 
+#実行場所
+import os
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_2\Answer_sheet\AI_Chapter2_saved_files")
+
 #インポート
 import pandas as pd
 import requests,io
@@ -25,7 +29,7 @@ le_a = le.fit_transform(auto['make'])
 auto['label_make'] = le_a
 
 #count encoding
-count = auto.groupby('make').label_make.count()
-auto['count_make'] = auto['make'].map(count)
+count = auto.groupby('make').label_make.count()                                  #make列内の項目毎に、出現回数をカウントした配列を作る
+auto['count_make'] = auto['make'].map(count)                                     #make列内の項目毎に出現回数をカウントした配列の要素を、make列の値に従ってcount_make列にマッピングする
 
 display(auto[['make','label_make','count_make']])

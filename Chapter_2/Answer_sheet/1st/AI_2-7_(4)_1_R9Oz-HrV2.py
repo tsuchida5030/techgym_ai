@@ -1,4 +1,4 @@
-#AI-TECHGYM-2-7-A-2
+#AI-TECHGYM-2-7-A-3
 #特徴量エンジニアリング
 
 #実行場所
@@ -8,6 +8,7 @@ os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\
 #インポート
 import pandas as pd
 import requests,io
+import category_encoders as ce
 
 #自動車価格データの取得
 url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/autos/imports-85.data'
@@ -20,6 +21,16 @@ auto.columns =['symboling','normalized-losses','make','fuel-type' ,'aspiration',
 #データ表示
 #display(auto)
 
-#one-hot-encoding
-auto_c = pd.get_dummies(auto[['body-style','engine-type']])
-display(auto_c)
+#===one-hot-encoding===
+#Eoncodeしたい列をリストで指定(複数も指定可能)
+list_cols = ['body-style','engine-type']
+auto_c = auto[['body-style','engine-type']]
+
+#OneHotEncodeしたい列を指定(Nullや不明の場合の補完方法も指定)
+ce_ohe = ce.OneHotEncoder(cols=list_cols)
+
+#変換後のデータフレーム
+auto_ce = ce_ohe.fit_transform(auto_c)
+
+#表示
+display(auto_ce)

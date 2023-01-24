@@ -8,6 +8,7 @@ os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\
 #インポート
 import pandas as pd
 import requests,io
+import category_encoders
 
 #自動車価格データの取得
 url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/autos/imports-85.data'
@@ -21,5 +22,5 @@ auto.columns =['symboling','normalized-losses','make','fuel-type' ,'aspiration',
 #display(auto)
 
 #one-hot-encoding
-auto_c = pd.get_dummies(auto[['body-style','engine-type']])
-display(auto_c)
+ce = category_encoders()
+ce.fit_transfomation(auto[['body-style','engine-type']])

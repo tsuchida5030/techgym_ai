@@ -1,4 +1,4 @@
-#AI-TECHGYM-2-7-A-2
+#AI-TECHGYM-2-7-A-1
 #特徴量エンジニアリング
 
 #実行場所
@@ -8,6 +8,7 @@ os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\
 #インポート
 import pandas as pd
 import requests,io
+from sklearn.preprocessing import LabelEncoder
 
 #自動車価格データの取得
 url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/autos/imports-85.data'
@@ -20,6 +21,9 @@ auto.columns =['symboling','normalized-losses','make','fuel-type' ,'aspiration',
 #データ表示
 #display(auto)
 
-#one-hot-encoding
-auto_c = pd.get_dummies(auto[['body-style','engine-type']])
-display(auto_c)
+#one hot encoding
+df_c = pd.get_dummies(auto[['body-style','engine-type']],)                                                           #カテゴリ変数となる項目名が一列目に縦に並ぶデータフレームに対して、ワンホットエンコーディングを実行し、カテゴリ変数に対して0／1が入った行列を作る
+#出力されるデータフレームの列名はオプションを指定しなければデフォルトで、<元のデータフレームの列名>_<カテゴリ変数名>となる
+#get_dummiesのオプション・・・prefix, prefix_sep, columns(https://note.nkmk.me/python-pandas-get-dummies/)
+
+display(df_c)
