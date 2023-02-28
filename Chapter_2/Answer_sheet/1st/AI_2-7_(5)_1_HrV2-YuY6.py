@@ -1,4 +1,4 @@
-#AI-TECHGYM-2-7-A-5
+#AI-TECHGYM-2-7-A-3
 #特徴量エンジニアリング
 
 #実行場所
@@ -7,10 +7,12 @@ os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\
 
 #インポート
 import pandas as pd
-import numpy as np
 import requests,io
+import category_encoders as ce
+from sklearn.datasets import load_breast_cancer
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
 
 #自動車価格データの取得
 url = 'http://archive.ics.uci.edu/ml/machine-learning-databases/autos/imports-85.data'
@@ -23,19 +25,21 @@ auto.columns =['symboling','normalized-losses','make','fuel-type' ,'aspiration',
 #データ表示
 #display(auto)
 
-# データの前処理
-auto_c = pd.get_dummies(auto[['width','engine-size','make','body-style','engine-type','fuel-system']])
+#===重回帰分析===
+#重回帰分析の説明変数をリストで指定(複数も指定可能)
+list_cols = ['width','engine-size', 'make', 'body-style', 'engine-type', 'fuel-system']
+auto_c = auto[list_cols]
 
-auto_c['price'] = auto['price']
-auto_c = auto_c.replace('?', np.nan).dropna()
+#?やNaNの行を削除し、重回帰分析したい列を指定
+auto_c = auto_c.dropna()
+ce_ohe = ce.OneHotEncoder(cols=list_cols)
 
-# 学習用/検証用にデータを分割
-X = auto_c.drop('price', axis=1)
-y = auto_c['price']
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=10)
+X_train, X_test, y_train, y_test = train_test_split(
+    auto[list_cols], auto['price'], stratify = auto['price'], random_state=0)
 
-# モデルの構築・評価
-model = LinearRegression()
+model = LogisticRegression(random_state=0,solver='liblinear')
 model.fit(X_train,y_train)
-print('決定係数(train):{:.3f}'.format(model.score(X_train,y_train)))
-print('決定係数(test):{:.3f}'.format(model.score(X_test,y_test)))
+
+print("標準化前")
+print('正解率(train):{:.3f}'.format(model.score(X_train, y_train)))
+print('正解率(test):{:.3f}'.format(model.score(X_test, y_test)))
