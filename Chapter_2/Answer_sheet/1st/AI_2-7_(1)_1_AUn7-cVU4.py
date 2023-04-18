@@ -3,7 +3,7 @@
 
 #実行場所
 import os
-os.chdir("C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_2\Answer_sheet\AI_Chapter2_saved_files")
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_2\Answer_sheet\AI_Chapter2_saved_files")
 
 #インポート
 import pandas as pd
@@ -20,3 +20,16 @@ auto.columns =['symboling','normalized-losses','make','fuel-type' ,'aspiration',
                             'stroke','compression-ratio','horsepower','peak-rpm','city-mpg','highway-mpg','price']
 #データ表示
 #display(auto)
+
+cols = auto.make
+
+#LabelEncoderのインスタンスを生成
+le = LabelEncoder()
+
+#ラベルを覚えさせる,ラベルを整数に変換
+le_a = le.fit_transform(cols)                                              #リスト内の項目毎に、ユニークな整数をエンコードした配列を作る
+df_le = pd.DataFrame(le_a,columns=['label_make'])                    #配列をデータフレームに変換する
+# df_le = pd.DataFrame(le_a,index=cols,columns=['count_make'])
+
+df_auto = pd.concat([auto, df_le], axis=1)
+display(df_auto)

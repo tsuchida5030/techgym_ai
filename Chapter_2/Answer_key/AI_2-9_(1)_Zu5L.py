@@ -6,7 +6,11 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+import time
 import os
+
+# 実行場所
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_2\Answer_sheet\AI_Chapter2_saved_files")
 
 #ファイルがなければ前の問題を実施する
 title = "FIFA_data_pre.csv"
@@ -23,6 +27,8 @@ sns.set(style = "dark", palette = "colorblind", color_codes = True)
 #必要に応じて表示
 #display(df.head())
 #display(df.columns)
+
+st_time = time.time()
 
 #利き足の数
 plt.figure(figsize = (15, 5))
@@ -83,3 +89,7 @@ plt.xlabel('Name of The Country',fontsize = 16)
 plt.ylabel('count',fontsize = 16)
 plt.tick_params(labelsize = 16)
 plt.show()
+
+en_time = time.time()
+wst_time = en_time - st_time
+print(wst_time)

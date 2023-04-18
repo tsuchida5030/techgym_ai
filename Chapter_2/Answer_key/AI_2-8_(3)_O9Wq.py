@@ -1,10 +1,16 @@
 #AI-TECHGYM-2-8-A-3
 #特徴量エンジニアリング
 
+# 実行場所
+import os
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_2\Answer_sheet\AI_Chapter2_saved_files")
+
 #インポート
 import pandas as pd
 import os
 import urllib.request
+import time
+import matplotlib.pyplot as plt
 
 #ファイルがなければダウンロードする
 title = "FIFA_data.csv"
@@ -104,6 +110,8 @@ def rating(data):
 def shooting(data):
     return int(round((data[['Finishing','Volleys','FKAccuracy','ShotPower','LongShots','Penalties']].mean()).mean()))
 
+st_time = time.time()
+
 #すべての行に適用
 df['Defending'] = df.apply(defending, axis = 1)
 df['General'] = df.apply(general, axis = 1)
@@ -113,6 +121,10 @@ df['Mobility'] = df.apply(mobility, axis = 1)
 df['Power'] = df.apply(power, axis = 1)
 df['Rating'] = df.apply(rating, axis = 1)
 df['Shooting'] = df.apply(shooting, axis = 1)
+
+en_time = time.time()
+wst_time = en_time - st_time
+print(wst_time)
 
 #CSVに書き出し
 df.to_csv('./FIFA_data_pre.csv')
