@@ -1,6 +1,10 @@
 #AI-TECHGYM-2-9-A-1
 #特徴量エンジニアリング
 
+# 実行場所
+import os
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_2\Answer_sheet\AI_Chapter2_saved_files")
+
 #インポート
 import pandas as pd
 import numpy as np
@@ -32,14 +36,14 @@ st_time = time.time()
 
 #利き足の数
 plt.figure(figsize = (15, 5))
-ax = sns.countplot(df['Preferred Foot'], palette = 'pink')
+ax = sns.countplot(data=df, x='Preferred Foot', palette = 'pink')
 ax.set_title('Most Preferred Foot of the Players', fontsize = 20)
 plt.tick_params(labelsize = 16)
 plt.show()
 
 #ポジション分布
 plt.figure(figsize = (15, 5))
-ax = sns.countplot('Position', data = df, palette = 'bone')
+ax = sns.countplot(data = df, x='Position', palette = 'bone')
 ax.set_xlabel(xlabel = 'Different Positions in Football', fontsize = 16)
 ax.set_ylabel(ylabel = 'Count of Players', fontsize = 16)
 ax.set_title(label = 'Comparison of Positions and Players', fontsize = 20)
@@ -48,12 +52,13 @@ plt.show()
 
 #背の高さ
 plt.figure(figsize = (15, 5))
-ax = sns.countplot(x = 'Height', data = df, palette = 'dark')
+ax = sns.countplot(data = df, x = 'Height', palette = 'dark')
 ax.set_xlabel(xlabel = 'Height in Foot per inch', fontsize = 16)
 ax.set_ylabel(ylabel = 'Count', fontsize = 16)
 ax.set_title(label = 'Count of players on Basis of Height', fontsize = 20)
 plt.tick_params(labelsize = 16)
 plt.show()
+#5'7とは、5フィート7インチの意味
 
 #特別なスコア
 plt.figure(figsize = (15, 5))
@@ -93,3 +98,16 @@ plt.show()
 en_time = time.time()
 wst_time = en_time - st_time
 print(wst_time)
+
+
+#特別なスコア
+plt.figure(figsize = (15, 5))
+fig axes = plt.subplot(1,2)
+axes[1,1] = sns.distplot(df['Special'], bins = 58, kde = True, color = 'r')
+axes[1,1].set_xlabel(xlabel = 'Special score range', fontsize = 16)
+axes[1,1].set_ylabel(ylabel = 'Count of the Players',fontsize = 16)
+axes[1,1].set_title(label = 'Histogram for the Speciality Scores of the Players', fontsize = 20)
+
+
+plt.tick_params(labelsize = 16)
+plt.show()
