@@ -32,6 +32,8 @@ plt.tick_params(labelsize = 16)
 #display(df.head())
 #display(df.columns)
 
+sns.countplot()
+
 en_time = time.time()
 wst_time = en_time - st_time
 print(wst_time)

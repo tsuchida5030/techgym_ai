@@ -13,9 +13,6 @@ import matplotlib.pyplot as plt
 import time
 import os
 
-# 実行場所
-os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_2\Answer_sheet\AI_Chapter2_saved_files")
-
 #ファイルがなければ前の問題を実施する
 title = "FIFA_data_pre.csv"
 if not os.path.exists(title):
@@ -101,13 +98,15 @@ print(wst_time)
 
 
 #特別なスコア
-plt.figure(figsize = (15, 5))
-fig axes = plt.subplot(1,2)
-axes[1,1] = sns.distplot(df['Special'], bins = 58, kde = True, color = 'r')
-axes[1,1].set_xlabel(xlabel = 'Special score range', fontsize = 16)
-axes[1,1].set_ylabel(ylabel = 'Count of the Players',fontsize = 16)
-axes[1,1].set_title(label = 'Histogram for the Speciality Scores of the Players', fontsize = 20)
-
-
-plt.tick_params(labelsize = 16)
-plt.show()
+# fig = plt.figure(figsize = (15, 5))
+# axes = fig.subplots(1,2)
+# sns.distplot(df['Special'], bins = 58, kde = False, color = 'r')
+# axes[0].set_xlabel(xlabel = 'Special score range', fontsize = 16)
+# axes[0].set_ylabel(ylabel = 'Count of the Players',fontsize = 16)
+# axes[0].set_title(label = 'Histogram for the Speciality Scores of the Players', fontsize = 20)
+# sns.distplot(df['Special'], bins = 58, color = 'r')
+# axes[1].set_xlabel(xlabel = 'Special score range', fontsize = 16)
+# axes[1].set_ylabel(ylabel = 'Count of the Players',fontsize = 16)
+# axes[1].set_title(label = 'Histogram for the Speciality Scores of the Players', fontsize = 20)
+# plt.tick_params(labelsize = 16)
+# plt.show()

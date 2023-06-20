@@ -1,6 +1,10 @@
 #AI-TECHGYM-2-9-A-2
 #特徴量エンジニアリング
 
+# 実行場所
+import os
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_2\Answer_sheet\AI_Chapter2_saved_files")
+
 #インポート
 import pandas as pd
 import numpy as np
