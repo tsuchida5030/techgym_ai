@@ -50,7 +50,41 @@ plt.title('Age vs Rating', fontsize = 20)
 plt.show()
 
 #上位9ヶ国の選手の体重の分布
+# major_countries = list(df['Nationality'].value_counts().index[0:9])
+# top9_countries_WofP = []
+# for country in major_countries:
+#     top9_countries_WofP.append(np.array(df[df['Nationality']==country].Weight))
+# # print(major_countries[0])
+# # display(top9_countries_WofP[0])
+# fig = plt.figure(figsize = (15,5))
+# ax = fig.add_subplot(1, 1, 1)
+# ax.violinplot(top9_countries_WofP)
+# ax.set_xticklabels(major_countries)
+# ax.set_xlabel('Countries')
+# ax.set_ylabel('Weight in lbs')
+# ax.set_title('Distribution of Weight of players from different countries')
+# plt.show()
+
+#上位9ヶ国の選手の体重の分布
+some_countries = ['England','Germany','Spain','Argentina','France','Brazil','Italy','Columbia','Japan']
+data_countries = df.loc[df['Nationality'].isin(some_countries)]
+plt.figure(figsize = (15,5))
+ax = sns.violinplot(x = data_countries['Nationality'], y = data_countries['Weight'], palette = 'Blues')
+ax.set_xlabel(xlabel = 'Countries', fontsize = 16)
+ax.set_ylabel(ylabel = 'Weight in lbs', fontsize = 16)
+ax.set_title(label = 'Distribution of Weight of players from different countries', fontsize = 20)
+plt.show()
 
 #クラブ別の総合値の分布
+some_popular_clubs = ['Chelsea', 'Real Madrid', 'FC Barcelona', 'Tottenham Hotspur', 'Valencia CF', 'Southampton', 'RC Celta', 'CD Leganés', 'Empoli', 'Fortuna Düsseldorf']
+data_clubs = df.loc[df['Club'].isin(some_popular_clubs)]
+plt.figure(figsize = (15,5))
+ax = sns.boxplot(x = 'Club', y = 'Overall', data = data_clubs, palette = 'inferno')
+ax.set_xlabel(xlabel = 'Some Popular Clubs', fontsize = 16)
+ax.set_ylabel(ylabel = 'Overall Score', fontsize = 16)
+ax.set_title(label = 'Distribution of Overall Score in Different popular Clubs', fontsize = 20)
+plt.show()
 
 #年齢とポテンシャルの分布
+ax = sns.jointplot(x = 'Age', y = 'Potential', data = df, joint_kws = {'alpha':0.1,'s':5,'color':'green'},marginal_kws = {'color':'green'},height=8)
+plt.show()

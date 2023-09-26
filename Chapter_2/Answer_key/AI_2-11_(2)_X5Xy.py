@@ -11,6 +11,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_squared_error
 
+# 実行場所
+import os
+os.chdir(r"C:\Users\tsuchida\Documents\techgym_セミナー\TortoiseGit_resorce\techgym_ai\Chapter_2\Answer_sheet\AI_Chapter2_saved_files")
+
 #ファイルがなければ前の問題を実施する
 title = "FIFA_data_pre2.csv"
 if not os.path.exists(title):
@@ -51,15 +55,46 @@ def right_footed(df):
 def simple_position(df):
     if (df['Position'] == 'GK'):
         return 'GK'
-    elif ((df['Position'] == 'RB')  | (df['Position'] == 'LB')  | (df['Position'] == 'CB')  | (df['Position'] == 'LCB') | (df['Position'] == 'RCB') | (df['Position'] == 'RWB') | (df['Position'] == 'LWB') ):
+    elif (
+        (df['Position'] == 'RB')  
+        | (df['Position'] == 'LB')  
+        | (df['Position'] == 'CB')  
+        | (df['Position'] == 'LCB') 
+        | (df['Position'] == 'RCB') 
+        | (df['Position'] == 'RWB') 
+        | (df['Position'] == 'LWB') 
+        ):
         return 'DF'
-    elif ((df['Position'] == 'LDM') | (df['Position'] == 'CDM') | (df['Position'] == 'RDM')):
+    elif (
+        (df['Position'] == 'LDM') 
+        | (df['Position'] == 'CDM') 
+        | (df['Position'] == 'RDM')
+        ):
         return 'DM'
-    elif ((df['Position'] == 'LM')  | (df['Position'] == 'LCM') | (df['Position'] == 'CM')  | (df['Position'] == 'RCM') | (df['Position'] == 'RM')):
+    elif (
+        (df['Position'] == 'LM')  
+        | (df['Position'] == 'LCM') 
+        | (df['Position'] == 'CM')  
+        | (df['Position'] == 'RCM') 
+        | (df['Position'] == 'RM')
+        ):
         return 'MF'
-    elif ((df['Position'] == 'LAM') | (df['Position'] == 'CAM') | (df['Position'] == 'RAM') | (df['Position'] == 'LW') | (df['Position'] == 'RW')):
+    elif (
+        (df['Position'] == 'LAM') 
+        | (df['Position'] == 'CAM') 
+        | (df['Position'] == 'RAM') 
+        | (df['Position'] == 'LW') 
+        | (df['Position'] == 'RW')
+        ):
         return 'AM'
-    elif ((df['Position'] == 'RS')  | (df['Position'] == 'ST')  | (df['Position'] == 'LS')  | (df['Position'] == 'CF') | (df['Position'] == 'LF') | (df['Position'] == 'RF')):
+    elif (
+        (df['Position'] == 'RS')  
+        | (df['Position'] == 'ST')  
+        | (df['Position'] == 'LS')  
+        | (df['Position'] == 'CF') 
+        | (df['Position'] == 'LF') 
+        | (df['Position'] == 'RF')
+        ):
         return 'ST'
     else:
         return df.Position

@@ -28,7 +28,7 @@ for i, row in enumerate(values):                                                
     vector    = [0] * len(values)                                                   #vector:ワンホットベクトルのベースとなる0ベクトル
     vector[i] = 1                                                                   #vector:ワンホットベクトルの1の場所を、他のループでつくるワンホットベクトルの1の場所と被らないよう、ループ回数iで指定する
     tmp_se    = pd.Series([row, vector], index=new_df.columns)                      #tmp_se:上述のrowとvectorを値としてシリーズ型にしたもの
-    new_df    = new_df.append(tmp_se, ignore_index=True)                            #空のデータフレームnew_dfに、tmp_seのシリーズを横に連結（２列分追加）する
+    new_df    = new_df.append(tmp_se, ignore_index=True)                            #空のデータフレームnew_dfに、tmp_seのシリーズを転置して縦に連結（1行分追加）する
 
 #表示
 display(new_df)
